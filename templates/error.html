@@ -1,10 +1,65 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error status {{code}}</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Debug Site</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .debug-box {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .debug-code {
+            background-color: #f44336;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .debug-message {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .debug-message pre {
+            margin: 0;
+        }
+    </style>
 </head>
+
 <body>
-    Exception status: {{code}}
+    <div class="debug-box">
+        <div class="debug-code">Status Error {{code}}</div>
+        <div class="debug-message">
+            <pre>{{customMessage}}</pre>
+        </div>
+    </div>
 </body>
+
 </html>
