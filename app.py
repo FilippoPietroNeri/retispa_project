@@ -1,5 +1,5 @@
 import requests
-from flask import Flask,render_template 
+from flask import Flask,render_template,request
 app = Flask(__name__)
 
 def error(message, errorCode):
@@ -11,19 +11,20 @@ def homepage():
 
 @app.route('/genres')
 def genersPage():
-    result = requests.get('https://librarymanagementpw.azurewebsites.net/api/gere')
-    if (result.status_code == 200):
-        return render_template('genres.html', json=result.json() , len=len(result.json()))
+    genreId = request.args.get('genreId') 
+    if not genreId:
+        result = requests.get('https://librarymanagementpw.azurewebsites.net/api/genre')
+        if (result.status_code == 200):
+            return render_template('genres.html', json=result.json() , len=len(result.json()))
+        else:
+            return error(result.json(),result.status_code)
     else:
-        return error(result.json(),result.status_code)
-
-@app.route('/genres/<id>')
-def genreId(id):
-    result2 = requests.get(f'https://librarymanagementpw.azurewebsites.net/api/genre/{id}')
-    if (result2.status_code == 200):
-        return result2
-    else:
-        return error(result2.json(),result2.status_code)
+        result2 = requests.get(f'https://librarymanagementpw.azurewebsites.net/api/genre/{genreId}')
+        if (result2.status_code == 200):
+            return result2
+        else:
+            return error(result2.json(),result2.status_code)
+    
 
 @app.route('/video/<id>')
 def videos(id):
