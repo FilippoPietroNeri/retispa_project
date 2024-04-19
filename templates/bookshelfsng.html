@@ -1,0 +1,27 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf </title>
+    <style>
+        .box {
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    {%for book in json.books %}
+        <div class="box">
+            <p><b>Id</b> {{book.id}}</p>
+            <p><b>Title</b> {{book.title}}</p>
+            <p><b>Prezzo</b> {{book.price}}€</p>
+            <p><b>Genere</b> {{book.genreName}}</p>
+        </div>
+    {%endfor%}
+</body>
+
+</html>
