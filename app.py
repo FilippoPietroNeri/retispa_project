@@ -1,5 +1,5 @@
 import requests
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,jsonify
 app = Flask(__name__)
 
 def error(message, errorCode):
@@ -20,6 +20,8 @@ def genersPage():
 @app.route('/bookshelf')
 def bookshelfPage():
     bookshelfId = request.args.get('bookshelfId') 
+    currentError = request.args.get('error')
+    currentSuccess = request.args.get('success')
     if not bookshelfId:
         result = requests.get('https://librarymanagementpw.azurewebsites.net/api/BookShelf')
         if (result.status_code == 200):
@@ -29,7 +31,12 @@ def bookshelfPage():
     else:
         result = requests.get(f'https://librarymanagementpw.azurewebsites.net/api/BookShelf/{bookshelfId}')
         if (result.status_code == 200):
-            return render_template('bookshelfsng.html', json=result.json() , len=len(result.json()))
+            if (currentError):
+                return render_template('bookshelfsng.html', json=result.json() , len=len(result.json()), error=currentError)
+            elif (currentSuccess):
+                return render_template('bookshelfsng.html', json=result.json() , len=len(result.json()), success=currentSuccess)
+            else:
+                return render_template('bookshelfsng.html', json=result.json() , len=len(result.json()))
         else:
             return error(result.json(),result.status_code)
 
@@ -47,10 +54,6 @@ def srcbookNM(bookname):
         return f'{bookname} not found'
     else:
         return error(result.json(), result.status_code)
-
-@app.route('/delete/book')
-def deleteBook():
-    return "Del"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3246, debug=True)

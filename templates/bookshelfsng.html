@@ -8,6 +8,16 @@
 </head>
 
 <body>
+    {% if error %}
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+    {%endif%}
+    {% if success %}
+      <div class="alert alert-success" role="alert">
+        {{success}}
+      </div>
+    {%endif%}
     <div class="container py-5">
         <h1 class="h2">Bookshelf List</h1>
     </div>
@@ -16,16 +26,27 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{book.title}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{book.genreName}}</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{book.genreName}} - {{book.price}}€</h6>
                     <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis magnam ipsa error aut optio debitis assumenda rerum maxime iste eveniet nostrum atque ab alias quisquam, vel reiciendis deserunt minima veniam.</p>
-                    <a class="btn btn-primary"> Compra per {{book.price}}€</a>
-                    <a class="btn btn-danger" href=""><i class="bi bi-trash"></i> Rimuovi libro</a>
+                    <a class="btn btn-danger" onclick="deleteBook('{{book.id}}')"><i class="bi bi-trash"></i> Rimuovi libro</a>
                 </div>
             </div>
         {%endfor%}
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"crossorigin="anonymous"></script>
+    <script>
+        function deleteBook(id)
+        {
+            fetch('https://librarymanagementpw.azurewebsites.net/api/Book/'+id, {method: 'DELETE'}).then((response) => {
+                if (response.status == 200) {
+                    window.location.reload();
+                    window.location.href += "&success=Hai rimosso il libro con successo!";
+                }
+            }).catch((err) => {
+                window.location.href = windows.location.href + "&error=Removing Book Failed";
+            });
+        }
+    </script>
 </body>
-
 </html>

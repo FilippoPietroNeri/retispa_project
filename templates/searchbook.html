@@ -12,9 +12,17 @@
     <div class="container py-20">
         <div class="input-group flex-nowrap">
             <span class="input-group-text" id="addon-wrapping">Nome Libro</span>
-            <input type="text" class="form-control" placeholder="bookname" aria-label="bookname" aria-describedby="addon-wrapping">
+            <input id="bookname" type="text" class="form-control" placeholder="bookname" aria-label="bookname" aria-describedby="addon-wrapping">
         </div>
+        <button class="btn btn-primary" id="search" onclick="search()">Cerca Libro</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"crossorigin="anonymous"></script>
-  </body>
+    <script>
+        const bname = document.getElementById('bookname');
+        function search()
+        {
+            document.location.href = '/search/book/'+bname.value;
+        }
+    </script>
+</body>
 </html>
