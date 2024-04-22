@@ -37,5 +37,20 @@ def bookshelfPage():
 def srcbook():
     return render_template('searchbook.html')
 
+@app.route('/search/book/<bookname>')
+def srcbookNM(bookname):
+    result = requests.get(f'https://librarymanagementpw.azurewebsites.net/api/Book')
+    if (result.status_code == 200):
+        for result in result.json():
+            if (result['title'] == bookname):
+                return result
+        return f'{bookname} not found'
+    else:
+        return error(result.json(), result.status_code)
+
+@app.route('/delete/book')
+def deleteBook():
+    return "Del"
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3245, debug=True)
+    app.run(host='0.0.0.0', port=3246, debug=True)

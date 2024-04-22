@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    <div class="container py-5">
+        <h1 class="h2">Bookshelf List</h1>
+    </div>
     <div class="container mt-20 py-20">
         {%for book in json.books %}
             <div class="card" style="width: 18rem;">
@@ -15,7 +18,8 @@
                     <h5 class="card-title">{{book.title}}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{book.genreName}}</h6>
                     <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis magnam ipsa error aut optio debitis assumenda rerum maxime iste eveniet nostrum atque ab alias quisquam, vel reiciendis deserunt minima veniam.</p>
-                    <a class="btn btn-primary" href="#" class="card-link"> Compra per {{book.price}}€</a>
+                    <a class="btn btn-primary"> Compra per {{book.price}}€</a>
+                    <a class="btn btn-danger" href=""><i class="bi bi-trash"></i> Rimuovi libro</a>
                 </div>
             </div>
         {%endfor%}
